@@ -1,6 +1,10 @@
 # IntervalTree
 
+[![MIT License][license-image]][license] [![Build Status][travis-image]][travis-url] [![NPM version][npm-version-image]][npm-url]
+
 This package implements a stable, well-tested **IntervalTree** type.
+It's licensed according to the permissive
+[zlib/libpng license](LICENSE).
 
 The purpose of an [interval tree](https://en.wikipedia.org/wiki/Interval_tree)
 is to map values to intervals represented as low and high bounds.
@@ -15,14 +19,20 @@ Querying methods are implemented as
 meaning that the output is computed lazily, as it is demanded,
 rather than eagerly added to an array all at once.
 
-Intervals are inclusive on both start and end boundaries, meaning that
-the interval `[1, 2]` is considered to intersect the interval `[2, 3]`.
-
 Be aware that this implementation supports numeric intervals only.
 The result of `input.valueOf()` is what is actually queried and stored.
 This means, for example, that an IntervalTree can be used with `Date`
 objects without needing to explicitly call `getTime` or `valueOf` to
 convert them to numeric timestamps.
+
+[license-image]: https://img.shields.io/badge/License-Zlib-lightgrey.svg
+[license]: https://github.com/pineapplemachine/sorted-array-type-js/blob/master/LICENSE
+
+[travis-url]: https://travis-ci.org/pineapplemachine/interval-tree-type-js
+[travis-image]: https://travis-ci.org/pineapplemachine/interval-tree-type-js.svg?branch=master
+
+[npm-url]: https://www.npmjs.com/package/interval-tree-type
+[npm-version-image]: https://badge.fury.io/js/interval-tree-type.svg
 
 ## Example
 
