@@ -7,7 +7,8 @@ is to map values to intervals represented as low and high bounds.
 An interval tree makes it possible to efficiently query all intervals
 which intersect a point or another interval.
 One common use of an interval tree is to index and query data by
-time intervals.
+time intervals, but it cannot be used with strings or other
+ordered types that cannot be converted to numbers.
 
 Querying methods are implemented as
 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*),
@@ -186,6 +187,11 @@ between patch versions. (e.g. *1.0.0* => *1.0.1*)
 You should use only the documented API or, if it's really important to use
 undocumented parts of the API, then you should be careful when upgrading to
 a newer version of the package.
+
+**How do I represent unbounded intervals?**
+The IntervalTree type is fully able to handle intervals with `+Infinity`
+and `-Infinity` bounds. You can use these values to indicate an
+unbounded interval, e.g. `[-Infinity, 1]` or `[1, +Infinity]`.
 
 **What is SortedArray?**
 The interval tree implementation uses a
