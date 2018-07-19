@@ -153,6 +153,11 @@ Inputs for which `value.valueOf()` does not return a number cannot be used
 as interval bounds. They must be converted to numbers some other way before
 being passed to IntervalTree methods.
 
+**How do I represent unbounded intervals?**
+The IntervalTree type is fully able to handle intervals with `+Infinity`
+and `-Infinity` bounds. You can use these values to indicate an
+unbounded interval, e.g. `[-Infinity, 1]` or `[1, +Infinity]`.
+
 **How does the implementation handle invalid intervals?**
 It is not allowed to insert an interval where either boundary is **NaN**,
 or where the boundaries do not satisfy the condition `low <= high`.
@@ -173,6 +178,14 @@ An `Interval` object has `low`, `high`, and `value` attributes. These
 attributes correspond to the arguments passed in a call to
 `intervalTree.insert(low, high, value)`.
 
+**In what order are intervals enumerated?**
+Except when otherwise specified, methods which enumerate intervals in an
+interval tree do so in no particular order.
+Think of it like enumerating the keys in a JavaScript Object:
+The implementation makes no guarantees about the order of the enumerated
+items, only that all of the relevant items will be present and will occur
+exactly once.
+
 **Is it safe to modify interval objects?**
 It is unsafe to modify the `Interval` objects returned or enumerated by any
 `IntervalTree` method.
@@ -187,28 +200,7 @@ Note that although there are in fact places where modifying these intervals
 or arrays of intervals won't affect the behavior of the tree, this may
 change from one package version to the next without notice.
 
-**In what order are intervals enumerated?**
-Except when otherwise specified, methods which enumerate intervals in an
-interval tree do so in no particular order.
-Think of it like enumerating the keys in a JavaScript Object:
-The implementation makes no guarantees about the order of the enumerated
-items, only that all of the relevant items will be present and will occur
-exactly once.
-
-**Is it safe to use methods not documented here?**
-Types, methods, and attributes not specifically documented in this readme
-are liable to change from one version to the next without notice, even
-between patch versions. (e.g. *1.0.0* => *1.0.1*)
-You should use only the documented API or, if it's really important for you to
-use undocumented parts of the API, then you should be careful when upgrading to
-a newer version of the package.
-
-**How do I represent unbounded intervals?**
-The IntervalTree type is fully able to handle intervals with `+Infinity`
-and `-Infinity` bounds. You can use these values to indicate an
-unbounded interval, e.g. `[-Infinity, 1]` or `[1, +Infinity]`.
-
-**What is SortedArray?**
+**What is a SortedArray?**
 The interval tree implementation uses a
 [SortedArray type](https://github.com/pineapplemachine/sorted-array-type-js)
 type to keep track of intervals.
@@ -219,6 +211,14 @@ other functions to no longer behave correctly. However, operations that do not
 modify the array should behave exactly like you would expect from any
 normal Array.
 (You should refer to the SortedArray package documentation for more detail.)
+
+**Is it safe to use methods not documented here?**
+Types, methods, and attributes not specifically documented in this readme
+are liable to change from one version to the next without notice, even
+between patch versions. (e.g. *1.0.0* => *1.0.1*)
+You should use only the documented API or, if it's really important for you to
+use undocumented parts of the API, then you should be careful when upgrading to
+a newer version of the package.
 
 ## API
 
