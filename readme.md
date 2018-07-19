@@ -119,12 +119,13 @@ Each node contains a list of intervals with the same low bound.
 Nodes are ordered, left-to-right, from least to greatest low bound.
 
 **How is interval equality determined?**
-Everywhere that interval values are compared, a
+You can pass a custom value equality function to the IntervalTree
+constructor, but by default a
 [SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
-comparison is used to determine equality.
+function is used to determine equality. (This is probably what you want!)
 This applies, for example, to the `contains` and `remove` methods.
 These methods match intervals with strictly-equal bounds (`===`) and
-values found to be equal according to a SameValueZero comparison.
+values found to be equal according to the value equality function.
 
 **When do intervals intersect?**
 Intervals are inclusive on both low and high bounds except where otherwise
@@ -144,7 +145,7 @@ as interval bounds. They must be converted to numbers some other way before
 being passed to IntervalTree methods.
 
 **How does the implementation handle invalid intervals?**
-It is not allowed to insert an interval where either boundary is _NaN_,
+It is not allowed to insert an interval where either boundary is **NaN**,
 or where the boundaries do not satisfy the condition `low <= high`.
 Violating these constraints will cause an insertion attempt to produce a
 [RangeError](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError).
@@ -153,7 +154,7 @@ that violate these constraints will cause the method to not match or apply
 to any intervals in the tree.
 For example, `intervalTree.contains(0, NaN, "value")` will _always_ return a
 falsey value because it is impossible for any interval in the tree to have
-_NaN_ as a boundary.
+**NaN** as a boundary.
 
 **How are contained intervals represented?**
 Methods which return an interval from the tree return an `Interval` object.
@@ -171,6 +172,11 @@ to make about its contents; this can cause the tree to behave incorrectly.
 If you want to change an interval in the tree, you must separately
 `remove` that interval with the old values and then `insert` it with the
 updated values.
+It is not safe to modify arrays of intervals returned by IntervalTree
+methods, either.
+Note that although there are in fact places where modifying these intervals
+or arrays of intervals won't affect the behavior of the tree, this may
+change from one package version to the next without notice.
 
 **In what order are intervals enumerated?**
 Except when otherwise specified, methods which enumerate intervals in an
@@ -184,8 +190,8 @@ exactly once.
 Types, methods, and attributes not specifically documented in this readme
 are liable to change from one version to the next without notice, even
 between patch versions. (e.g. *1.0.0* => *1.0.1*)
-You should use only the documented API or, if it's really important to use
-undocumented parts of the API, then you should be careful when upgrading to
+You should use only the documented API or, if it's really important for you to
+use undocumented parts of the API, then you should be careful when upgrading to
 a newer version of the package.
 
 **How do I represent unbounded intervals?**
@@ -199,11 +205,11 @@ The interval tree implementation uses a
 type to keep track of intervals.
 Some functions may return a SortedArray of intervals. When this is the case,
 the documentation will clearly mention it.
-Modifying operations like `push` or index assignment can cause the SortedArray's
+Modifying operations like `push` or index assignment can cause a SortedArray's
 other functions to no longer behave correctly. However, operations that do not
 modify the array should behave exactly like you would expect from any
 normal Array.
-You should refer to the SortedArray package documentation for more detail.
+(You should refer to the SortedArray package documentation for more detail.)
 
 ## API
 
@@ -232,7 +238,7 @@ An interval is said to match some input interval when the low and high bounds
 are strictly equal and when `valuesEqual(a, b)` returns a truthy value.
 
 When no value equality function is explicitly given,
-[SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/
+[SameValueZero](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Equality_comparisons_and_sameness)
 is used by default when determining value equality.
 
 ``` js
