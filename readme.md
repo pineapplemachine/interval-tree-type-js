@@ -11,8 +11,7 @@ is to map values to intervals represented as low and high bounds.
 An interval tree makes it possible to efficiently query all intervals
 which intersect a point or another interval.
 One common use of an interval tree is to index and query data by
-time intervals, but it cannot be used with strings or other
-ordered types that cannot be converted to numbers.
+time intervals.
 
 Querying methods are implemented as
 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*),
