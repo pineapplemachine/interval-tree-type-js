@@ -1,0 +1,49 @@
+{
+    "name": "interval-tree-type",
+    "description": "Interval tree data structure implementation.",
+    "version": "1.1.0",
+    "keywords": [
+        "augmented",
+        "red",
+        "black",
+        "interval",
+        "binary",
+        "search",
+        "tree",
+        "map",
+        "collection",
+        "data",
+        "structure"
+    ],
+    "main": "index.js",
+    "files": [
+        "index.js",
+        "readme.md",
+        "LICENSE"
+    ],
+    "license": "Zlib",
+    "homepage": "https://github.com/pineapplemachine/interval-tree-type-js",
+    "bugs": "https://github.com/pineapplemachine/interval-tree-type-js/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pineapplemachine/interval-tree-type-js.git"
+    },
+    "contributors": [
+        {
+            "name": "Sophie Kirschner",
+            "email": "sophiek@pineapplemachine.com"
+        }
+    ],
+    "dependencies": {
+        "sorted-array-type": "1.2.1"
+    },
+    "devDependencies": {
+        "canary-test": "1.0.3",
+        "nyc": "12.0.2"
+    },
+    "scripts": {
+        "test": "node canary-test.js",
+        "coverage": "nyc npm run test",
+        "prepublish": "npm run coverage"
+    }
+}
